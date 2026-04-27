@@ -117,6 +117,8 @@ ACTIONS = [
         "handler": git_pull,
         "style": "danger",
         "type": "task",
+        "confirm": True,
+        "confirm_message": "Pull latest changes for the selected repository?",
     },
     {
         "label": "Git Hub",

@@ -8,6 +8,7 @@ from actions.path_actions import open_folder_path
 from controller.action_controler import run_action
 from state import app_state
 from core.repo_scanner import find_git_repositories
+from tkinter import messagebox
 
 def build_main_layout(app, actions):
     main_frame = ttk.Frame(app, padding=0, style="Main.TFrame")
@@ -284,9 +285,19 @@ def create_action_card(parent, action, status_label, activity_list):
         width=20,
     )
 
-    button.configure(
-        command=lambda a=action, b=button: run_action(a, status_label, b, activity_list)
-    )
+    def handle_button_click():
+        if action.get("confirm"):
+            confirmed = messagebox.askyesno(
+                "Confirm Action",
+                action.get("confirm_message", f"Run {action['label']}?"),
+            )
+
+            if not confirmed:
+                return
+
+        run_action(action, status_label, button, activity_list)
+
+    button.configure(command=handle_button_click)
 
     button.pack(side=LEFT, padx=(0, 16))
 
