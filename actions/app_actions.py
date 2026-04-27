@@ -25,3 +25,8 @@ def open_terminal():
 def open_project_folder():
     launch_command(COMMANDS["project_folder"])
     return "Project folder opened successfully"
+
+
+def open_ai_dept():
+    launch_command(COMMANDS["open_AI_dept"])
+    return "AI Dept folder opened successfully"

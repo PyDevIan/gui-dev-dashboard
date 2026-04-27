@@ -3,7 +3,7 @@ from collections import defaultdict
 import ttkbootstrap as ttk
 from controller.action_controler import add_activity
 from ttkbootstrap.constants import *
-
+from core.conda_scanner import list_conda_env_names
 from actions.path_actions import open_folder_path
 from controller.action_controler import run_action
 from state import app_state
@@ -22,7 +22,7 @@ def build_main_layout(app, actions):
     dashboard_panel = create_dashboard_panel(content)
 
     add_header(dashboard_panel)
-    add_stats_row(dashboard_panel, actions)
+    # add_stats_row(dashboard_panel, actions)
 
     actions_panel, activity_panel = create_dashboard_body(dashboard_panel)
 
@@ -33,6 +33,7 @@ def build_main_layout(app, actions):
         "Launch tools, scripts, and workflows from here.",
     )
     add_git_repo_selector(actions_panel, status_label, activity_list)
+    add_conda_env_selector(actions_panel, status_label, activity_list)
     add_path_opener(actions_panel, status_label, activity_list)
 
     action_area = create_scrollable_area(actions_panel)
@@ -147,36 +148,36 @@ def add_header(parent):
     )
     subtitle.pack(anchor="w", pady=(0, 20))
 
-
-def add_stats_row(parent, actions):
-    stats_frame = ttk.Frame(parent, style="Panel.TFrame")
-    stats_frame.pack(fill=X, pady=(0, 10))
+#Not very usefull feature just clutter
+# def add_stats_row(parent, actions):
+#     stats_frame = ttk.Frame(parent, style="Panel.TFrame")
+#     stats_frame.pack(fill=X, pady=(0, 10))
     
-    categories = {action["category"] for action in actions}
+#     categories = {action["category"] for action in actions}
 
-    stats = [
-        ("Actions", len(actions)),
-        ("Categories", len(categories)),
-        ("Status", "Ready"),
-    ]
+#     stats = [
+#         ("Actions", len(actions)),
+#         ("Categories", len(categories)),
+#         ("Status", "Ready"),
+#     ]
 
-    for label, value in stats:
-        card = ttk.Frame(stats_frame, padding=14, style="Card.TFrame")
-        card.pack(side=LEFT, fill=X, expand=True, padx=(0, 10))
+#     for label, value in stats:
+#         card = ttk.Frame(stats_frame, padding=14, style="Card.TFrame")
+#         card.pack(side=LEFT, fill=X, expand=True, padx=(0, 10))
 
-        value_label = ttk.Label(
-            card,
-            text=str(value),
-            style="Title.TLabel",
-        )
-        value_label.pack(anchor="w")
+#         value_label = ttk.Label(
+#             card,
+#             text=str(value),
+#             style="Title.TLabel",
+#         )
+#         value_label.pack(anchor="w")
 
-        name_label = ttk.Label(
-            card,
-            text=label,
-            style="Description.TLabel",
-        )
-        name_label.pack(anchor="w")
+#         name_label = ttk.Label(
+#             card,
+#             text=label,
+#             style="Description.TLabel",
+#         )
+#         name_label.pack(anchor="w")
 
 
 def create_dashboard_body(parent):
@@ -435,5 +436,54 @@ def add_git_repo_selector(parent, status_label, activity_list):
         text="Set Repo",
         bootstyle="success",
         command=handle_set_repo,
+    )
+    set_button.pack(side=RIGHT)
+
+def add_conda_env_selector(parent, status_label, activity_list):
+    env_names = list_conda_env_names()
+
+    wrapper = ttk.Frame(parent, padding=12, style="Card.TFrame")
+    wrapper.pack(fill=X, pady=(0, 16))
+
+    title = ttk.Label(
+        wrapper,
+        text="Selected Conda Environment",
+        style="Section.TLabel",
+    )
+    title.pack(anchor="w", pady=(0, 8))
+
+    row = ttk.Frame(wrapper, style="Card.TFrame")
+    row.pack(fill=X)
+
+    env_combo = ttk.Combobox(
+        row,
+        values=env_names,
+        state="readonly",
+    )
+    env_combo.pack(side=LEFT, fill=X, expand=True, padx=(0, 10))
+
+    if env_names:
+        env_combo.current(0)
+
+    def handle_set_env():
+        selected_env = env_combo.get()
+
+        if not selected_env:
+            message = "No Conda environment selected"
+            status_label.config(text=message)
+            add_activity(activity_list, message)
+            return
+
+        app_state.selected_conda_env = selected_env
+
+        message = f"Selected env: {selected_env}"
+        status_label.config(text=message)
+        add_activity(activity_list, message)
+
+    set_button = ttk.Button(
+        row,
+        text="Set Env",
+        bootstyle="success",
+        command=handle_set_env,
     )
     set_button.pack(side=RIGHT)

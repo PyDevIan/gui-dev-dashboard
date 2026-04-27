@@ -1,11 +1,27 @@
-from actions.app_actions import open_project_folder, open_terminal, open_vscode
+from actions.app_actions import (
+    open_ai_dept,
+    open_project_folder,
+    open_terminal,
+    open_vscode,
+)
+from actions.conda_actions import (
+    export_current_env,
+    list_conda_envs,
+)
+from actions.docker_actions import (
+    show_docker_containers,
+)
 from actions.git_actions import (
     git_branch,
     git_pull,
     git_status,
 )
-from actions.conda_actions import (
-    list_conda_envs,
+from actions.quality_actions import open_desktop_index, open_downloads
+from actions.script_actions import (
+    open_repo_terminal_with_env,
+    run_python_main,
+    run_streamlit_app,
+    run_uvicorn_app,
 )
 from actions.system_actions import (
     open_logs_file,
@@ -47,6 +63,14 @@ ACTIONS = [
         "type": "launch",
     },
     {
+        "label": "Open AI Department",
+        "description": "Open your main project directory",
+        "category": "Work",
+        "handler": open_ai_dept,
+        "style": "info",
+        "type": "launch",
+    },
+    {
         "label": "Open Logs File",
         "description": "Open application logs directory",
         "category": "System",
@@ -61,6 +85,14 @@ ACTIONS = [
         "handler": open_task_manager,
         "style": "success",
         "type": "launch",
+    },
+    {
+        "label": "Docker Containers",
+        "description": "Show running Docker containers",
+        "category": "System",
+        "handler": show_docker_containers,
+        "style": "info",
+        "type": "task",
     },
     {
         "label": "Open VS Code Insiders",
@@ -121,6 +153,14 @@ ACTIONS = [
         "confirm_message": "Pull latest changes for the selected repository?",
     },
     {
+        "label": "Repo Terminal",
+        "description": "Open terminal in selected repo with selected Conda env",
+        "category": "Git",
+        "handler": open_repo_terminal_with_env,
+        "style": "info",
+        "type": "launch",
+    },
+    {
         "label": "Git Hub",
         "description": "Open Organazation GitHub",
         "category": "Git",
@@ -147,9 +187,59 @@ ACTIONS = [
     {
         "label": "List Conda Envs",
         "description": "Show available Conda environments",
-        "category": "Development",
+        "category": "Conda",
         "handler": list_conda_envs,
         "style": "info",
         "type": "task",
+    },
+    {
+        "label": "Export Conda Env",
+        "description": "Export current environment to environment.yml",
+        "category": "Conda",
+        "handler": export_current_env,
+        "style": "warning",
+        "type": "task",
+        "confirm": True,
+        "confirm_message": "Export current Conda environment to environment.yml?",
+    },
+    {
+        "label": "Open Downloads",
+        "description": "Open Windows Downloads folder",
+        "category": "Quality of Life",
+        "handler": open_downloads,
+        "style": "secondary",
+        "type": "launch",
+    },
+    {
+        "label": "Open Desktop Index",
+        "description": "Open personal desktop cleanup folder",
+        "category": "Quality of Life",
+        "handler": open_desktop_index,
+        "style": "secondary",
+        "type": "launch",
+    },
+    {
+        "label": "Run Streamlit",
+        "description": "Run streamlit app.py in selected repo",
+        "category": "Project Launcher",
+        "handler": run_streamlit_app,
+        "style": "success",
+        "type": "launch",
+    },
+    {
+        "label": "Run Uvicorn",
+        "description": "Run FastAPI app.main:app in selected repo",
+        "category": "Project Launcher",
+        "handler": run_uvicorn_app,
+        "style": "success",
+        "type": "launch",
+    },
+    {
+        "label": "Run Python Main",
+        "description": "Run python main.py in selected repo",
+        "category": "Project Launcher",
+        "handler": run_python_main,
+        "style": "success",
+        "type": "launch",
     },
 ]

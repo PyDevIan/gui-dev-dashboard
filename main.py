@@ -22,10 +22,9 @@ try:
     )
 
     app = ttk.Window(themename=APP_THEME)
-    apply_custom_styles(app.style)
-
-    app.title("Developer Control Panel")
     app.iconbitmap(BASE_DIR / "icon.ico")
+    apply_custom_styles(app.style)
+    app.title("Developer Control Panel")
     app.state("zoomed")
 
     tray_icon = create_tray_icon(app)
