@@ -22,7 +22,8 @@ try:
     app = ttk.Window(themename=APP_THEME)
     apply_custom_styles(app.style)
     app.title("Developer Control Panel")
-    app.geometry("1420x960")
+    app.iconbitmap("icon.ico")
+    app.geometry("1640x1210")
 
     build_main_layout(app, ACTIONS)
 

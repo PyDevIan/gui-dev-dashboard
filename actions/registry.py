@@ -4,13 +4,10 @@ from actions.git_actions import (
     git_pull,
     git_status,
 )
-from actions.monitoring_actions import (
-    check_node_processes,
-    check_python_processes,
-    check_sql_services,
+from actions.conda_actions import (
+    list_conda_envs,
 )
 from actions.system_actions import (
-    check_python_version,
     open_logs_file,
     open_task_manager,
 )
@@ -66,14 +63,6 @@ ACTIONS = [
         "type": "launch",
     },
     {
-        "label": "Check Python Version",
-        "description": "Verify active Python installation",
-        "category": "System",
-        "handler": check_python_version,
-        "style": "success",
-        "type": "task",
-    },
-    {
         "label": "Open VS Code Insiders",
         "description": "Launch Visual Studio Code Insiders",
         "category": "Development",
@@ -104,30 +93,6 @@ ACTIONS = [
         "handler": open_codex,
         "style": "primary",
         "type": "launch",
-    },
-    {
-        "label": "Python Processes",
-        "description": "Show running Python processes",
-        "category": "Monitoring",
-        "handler": check_python_processes,
-        "style": "secondary",
-        "type": "task",
-    },
-    {
-        "label": "Node Processes",
-        "description": "Show running Node.js processes",
-        "category": "Monitoring",
-        "handler": check_node_processes,
-        "style": "secondary",
-        "type": "task",
-    },
-    {
-        "label": "SQL Services",
-        "description": "Show SQL-related Windows services",
-        "category": "Monitoring",
-        "handler": check_sql_services,
-        "style": "secondary",
-        "type": "task",
     },
     {
         "label": "Git Status",
@@ -176,5 +141,13 @@ ACTIONS = [
         "handler": open_comet_browser,
         "style": "info",
         "type": "launch",
+    },
+    {
+        "label": "List Conda Envs",
+        "description": "Show available Conda environments",
+        "category": "Development",
+        "handler": list_conda_envs,
+        "style": "info",
+        "type": "task",
     },
 ]
