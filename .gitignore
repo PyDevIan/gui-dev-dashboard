@@ -52,3 +52,5 @@ state/local_state.json
 tmp/
 temp/
 *.tmp
+app.lock
+run_contol_panel.bat
