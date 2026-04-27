@@ -9,6 +9,11 @@ from core.single_instance import acquire_lock, release_lock
 from core.tray import create_tray_icon, hide_to_tray
 from ui.layout import build_main_layout
 from ui.theme import APP_THEME, apply_custom_styles
+import ctypes
+
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+    "giannis.dev.controlpanel"
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 os.chdir(BASE_DIR)
@@ -22,13 +27,12 @@ try:
     )
 
     app = ttk.Window(themename=APP_THEME)
-    app.iconbitmap(BASE_DIR / "icon.ico")
+    app.iconbitmap(str(BASE_DIR / "icon.ico"))
     apply_custom_styles(app.style)
     app.title("Developer Control Panel")
     app.state("zoomed")
 
     tray_icon = create_tray_icon(app)
-
     build_main_layout(app, ACTIONS)
 
     app.protocol("WM_DELETE_WINDOW", lambda: hide_to_tray(app))
