@@ -32,3 +32,7 @@ def open_github():
 def open_openprj():
     webbrowser.open(COMMANDS["open_project_url"])
     return "Project Management Mode Enabled"
+
+def open_dbdiagram():
+    webbrowser.open(COMMANDS["oprn_dbdiagram"])
+    return "Data Engineering Software Initiated"

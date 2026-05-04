@@ -21,8 +21,7 @@ COMMANDS = {
     "docker_ps": "docker ps",
     "downloads_folder": r'explorer "%USERPROFILE%\Downloads\_ToReview"',
     "desktop_index_folder": r'explorer "C:\Users\ai.research1\OneDrive - ARI S.A\Desktop\_Desktop_Inbox"',
-
-
+    "oprn_dbdiagram" : r'"https://dbdiagram.io/d/Master-Data-Model-69f328acc6a36f9c1bca2b82"'
 }
 
 

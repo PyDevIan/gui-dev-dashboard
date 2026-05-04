@@ -6,14 +6,10 @@ import ttkbootstrap as ttk
 from actions.registry import ACTIONS
 from core.logging_setup import setup_logging
 from core.single_instance import acquire_lock, release_lock
-from core.tray import create_tray_icon, hide_to_tray
+from core.tray import create_tray_icon, hide_to_tray ,apply_icon_with_retry
 from ui.layout import build_main_layout
 from ui.theme import APP_THEME, apply_custom_styles
-import ctypes
 
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
-    "giannis.dev.controlpanel"
-)
 
 BASE_DIR = Path(__file__).resolve().parent
 os.chdir(BASE_DIR)
@@ -27,10 +23,11 @@ try:
     )
 
     app = ttk.Window(themename=APP_THEME)
-    app.iconbitmap(str(BASE_DIR / "icon.ico"))
     apply_custom_styles(app.style)
     app.title("Developer Control Panel")
     app.state("zoomed")
+    app.update_idletasks()
+    apply_icon_with_retry(app, BASE_DIR / "icon.ico", logger=logger)
 
     tray_icon = create_tray_icon(app)
     build_main_layout(app, ACTIONS)

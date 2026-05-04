@@ -30,6 +30,7 @@ from actions.system_actions import (
 from actions.work_actions import (
     open_codex,
     open_comet_browser,
+    open_dbdiagram,
     open_github,
     open_jira_tickets,
     open_openprj,
@@ -124,6 +125,14 @@ ACTIONS = [
         "category": "Development",
         "handler": open_codex,
         "style": "primary",
+        "type": "launch",
+    },
+    {
+        "label": "DBdiagram",
+        "description": "Open DBdiagram in browser",
+        "category": "Database",
+        "handler": open_dbdiagram,
+        "style": "info",
         "type": "launch",
     },
     {
