@@ -36,3 +36,7 @@ def open_openprj():
 def open_dbdiagram():
     webbrowser.open(COMMANDS["oprn_dbdiagram"])
     return "Data Engineering Software Initiated"
+
+def open_kpidash():
+    webbrowser.open(COMMANDS['kpi_dashboard'])
+    return "KPI DashBoard Launched"
