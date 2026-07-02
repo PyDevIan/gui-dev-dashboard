@@ -30,3 +30,7 @@ def open_project_folder():
 def open_ai_dept():
     launch_command(COMMANDS["open_AI_dept"])
     return "AI Dept folder opened successfully"
+
+def open_copilot_codex():
+    launch_command(COMMANDS["codex"])
+    return "Codex Copilot Ready for Duty"

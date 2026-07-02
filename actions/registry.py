@@ -1,5 +1,6 @@
 from actions.app_actions import (
     open_ai_dept,
+    open_copilot_codex,
     open_project_folder,
     open_terminal,
     open_vscode,
@@ -33,10 +34,10 @@ from actions.work_actions import (
     open_dbdiagram,
     open_github,
     open_jira_tickets,
+    open_kpidash,
     open_openprj,
     open_ssms_22,
     open_vs_insiders,
-    open_kpidash
 )
 
 ACTIONS = [
@@ -79,6 +80,14 @@ ACTIONS = [
         "description": "Open Codex in browser",
         "category": "Development",
         "handler": open_codex,
+        "style": "primary",
+        "type": "launch",
+    },
+    {
+        "label": "Codex Desktop",
+        "description": "Open Codex in Desktop",
+        "category": "Development",
+        "handler": open_copilot_codex,
         "style": "primary",
         "type": "launch",
     },
